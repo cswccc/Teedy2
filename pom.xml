@@ -81,39 +81,76 @@
       </snapshots>
     </repository>
   </repositories>
+
   <build>
     <plugins>
+
+    <plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-pmd-plugin</artifactId>
+<version>3.21.2</version> <!-- or use version from pluginManagement -->
+<configuration>
+<!-- failOnViolation is actually true by default, but can be disabled -->
+<failOnViolation>false</failOnViolation>
+<!-- printFailingErrors is pretty useful -->
+<printFailingErrors>true</printFailingErrors>
+<rulesets>
+<ruleset>answer.xml</ruleset>
+</rulesets>
+</configuration>
+<executions>
+<execution>
+<goals>
+<goal>check</goal>
+</goals>
+</execution>
+</executions>
+</plugin>
+
+
       <plugin>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <version>11.0.14</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.21.2</version> <!-- or use version from pluginManagement -->
-        <configuration>
-          <!-- failOnViolation is actually true by default, but can be disabled -->
-          <failOnViolation>false</failOnViolation>
-          <!-- printFailingErrors is pretty useful -->
-          <printFailingErrors>true</printFailingErrors>
-          <rulesets>
-            <ruleset>..\software_engineer_lab7\answer.xml</ruleset>
-          </rulesets>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-javadoc-plugin</artifactId>
+<version>3.6.3</version>
+<executions>
+<execution>
+<id>aggregate</id>
+<goals>
+<goal>aggregate</goal>
+</goals>
+<phase>site</phase>
+</execution>
+</executions>
+</plugin>
+
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
         <version>${org.apache.maven.plugins.maven-antrun-plugin.version}</version>
       </plugin>
+
+
+       <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.8.9</version>
+          <executions>
+          <execution>
+          <goals>
+          <goal>prepare-agent</goal>
+          </goals>
+          </execution>
+          <!-- attached to Maven test phase -->
+          <execution>
+          <id>report</id>
+          <phase>test</phase>
+          <goals>
+          <goal>report</goal>
+          </goals>
+          </execution>
+          </executions>
+          </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -142,28 +179,6 @@
         <artifactId>jetty-maven-plugin</artifactId>
         <version>${org.eclipse.jetty.jetty-maven-plugin.version}</version>
       </plugin>
-
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.9</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>prepare-agent</goal>
-            </goals>
-          </execution>
-          <!-- attached to Maven test phase -->
-          <execution>
-            <id>report</id>
-            <phase>test</phase>
-            <goals>
-              <goal>report</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
     </plugins>
   </build>
         
@@ -550,9 +565,6 @@
       </dependency>
 
     </dependencies>
-
   </dependencyManagement>
-
-
   
 </project>
