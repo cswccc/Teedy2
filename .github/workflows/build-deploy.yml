@@ -58,7 +58,7 @@ jobs:
         id: metadata
         uses: docker/metadata-action@v3
         with:
-          images: cswccc/teedytest2024
+          images: cswccc/test
           flavor: |
             latest=false
           tags: |
