@@ -13,17 +13,12 @@ pipeline {
             }
         }
 
-        stage('PMD') {
+        stage('K8s') {
             steps {
-                sh 'mvn pmd:pmd -Dformat=html'
+            sh 'kubectl set image deployments/hello-node docs=sismics/docs:latest'
             }
         }
 
-        stage('Test') {
-            steps {
-                sh 'mvn test -pl docs-core'
-            }
-        }
     }
 
     post {
