@@ -7,18 +7,11 @@ pipeline {
             }
         }
 
-        stage('Generate Javadoc') {
-            steps {
-                sh 'mvn javadoc:jar -Dmaven.javadoc.failOnError=false'
-            }
-        }
-
         stage('K8s') {
             steps {
-            sh 'kubectl set image deployments/hello-node docs=cswccc/teedy_local:latest'
+            sh 'kubectl set image deployment/teedy docs=cswccc/teedy_local:latest'
             }
         }
-
     }
 
     post {
