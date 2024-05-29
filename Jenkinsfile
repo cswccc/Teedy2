@@ -13,12 +13,4 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            archiveArtifacts artifacts: '**/target/**/*.jar', fingerprint: true
-            archiveArtifacts artifacts: '**/target/**/*.war', fingerprint: true
-            archiveArtifacts artifacts: '**/target/surefire-reports/*.xml', fingerprint: true
-            archiveArtifacts artifacts: '**/target/site/**', fingerprint: true
-        }
-    }
 }
