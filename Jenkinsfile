@@ -9,11 +9,10 @@ pipeline {
 
         stage('K8s') {
             steps {
-            sh 'kubectl set image deployment/teedy docs=cswccc/teedy_local:latest'
+            sh 'kubectl set image deployment/teedy docs=sismics/docs:latest'
             }
         }
     }
-
     post {
         always {
             archiveArtifacts artifacts: '**/target/**/*.jar', fingerprint: true
